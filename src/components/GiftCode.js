@@ -3,11 +3,15 @@ import { Card } from 'react-bootstrap';
 const GiftCode = ({ giftCode }) => {
   const { model_code, model_name, description, discount, valid_date } = giftCode;
 
+  // Lấy ký tự cuối của model_code
+  const lastChar = model_code.slice(-1); // Lấy ký tự cuối cùng
+  const imageSrc = require('../images/' + lastChar + '.jpg');
+
   return (
     <Card className="mb-3" style={{ width: '18rem' }}>
       <Card.Img
         variant="top"
-        src={`https://cellphones.com.vn/sforum/wp-content/uploads/2023/08/hinh-nen-gaming-13.jpg`} // Hiển thị hình ảnh
+        src={imageSrc} // Hiển thị ảnh động
         alt={model_code}
       />
       <Card.Body>
