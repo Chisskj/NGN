@@ -1,0 +1,42 @@
+.home-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+  }
+  
+  .dashboard-card {
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .icon-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .card-title {
+    font-weight: bold;
+  }
+  
+  .card-text {
+    color: #6c757d;
+  }
+  
+  button {
+    font-weight: 500;
+    padding: 10px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  ul li {
+    margin-bottom: 10px;
+  }
+  
+  .shadow-sm {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  

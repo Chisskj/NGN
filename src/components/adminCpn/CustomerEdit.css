@@ -1,0 +1,23 @@
+.customer-edit-container {
+    padding: 30px 15px;
+    background-color: #f8f9fa;
+  }
+  
+  .customer-edit-container .shadow-lg {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .customer-edit-container .btn-secondary {
+    margin-left: 10px;
+  }
+  
+  .customer-edit-container .form-control {
+    border-radius: 5px;
+  }
+  
+  .customer-edit-container .btn-primary,
+  .customer-edit-container .btn-secondary {
+    border-radius: 20px;
+    padding: 10px 20px;
+  }
+  

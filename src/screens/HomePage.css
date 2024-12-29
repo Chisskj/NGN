@@ -1,23 +1,78 @@
-/* Các hiệu ứng khi phần tử xuất hiện */
+/* HomePage.css */
+
+/* Tạo khoảng cách cho các phần tử */
+.mt-5 {
+  margin-top: 50px;
+}
+
+/* Định dạng Title cho Game Codes */
+h3 {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Cải thiện Button style */
+button {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Thêm hiệu ứng cho khi chuyển game code */
 .slide-enter {
-    transform: translateY(100px);
-    opacity: 0;
-  }
-  
-  .slide-enter-active {
-    transform: translateY(0);
-    opacity: 1;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-  }
-  
-  .slide-exit {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  
-  .slide-exit-active {
-    transform: translateY(-100px);
-    opacity: 0;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-  }
-  
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.slide-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 500ms ease-in-out, opacity 500ms ease-in-out;
+}
+
+.slide-exit {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.slide-exit-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 500ms ease-in-out, opacity 500ms ease-in-out;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Điều chỉnh kích thước Card */
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Thêm một ít padding cho body */
+.card-body {
+  padding: 1.5rem;
+}
