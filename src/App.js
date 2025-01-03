@@ -9,6 +9,9 @@ import AdminPage from './screens/AdminPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import HomePage from './screens/HomePage';
 import ProfilePage from './screens/ProfilePage';
+import PurchaseScreen from './screens/PurchaseScreen';
+import ResultScreen from "./screens/ResultScreen";
+import CodePurchaseScreen from "./screens/CodePurchaseScreen";
 import './bootstrap.min.css';
 
 // Context to manage global authentication state
@@ -17,13 +20,12 @@ export const AuthContext = createContext();
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
+  const [selectedGiftCode, setSelectedGiftCode] = useState(null); // State for selected gift code
 
   // Check authentication status on app load
   useEffect(() => {
     const token = localStorage.getItem('authToken');
-    if (token) {
-      setIsAuthenticated(true);
-    }
+    setIsAuthenticated(!!token);
   }, []);
 
   // Handle login success
@@ -38,6 +40,44 @@ function App() {
     setIsAuthenticated(false);
   };
 
+  // Component for the welcome/authentication screen
+  const WelcomeScreen = () => (
+    <Row>
+      <Col md={6} className="bg-dark text-white d-flex align-items-center justify-content-center">
+        <div>
+          <h1>Welcome to ProShop</h1>
+          <p>Explore our products and experience the best shopping platform!</p>
+        </div>
+      </Col>
+      <Col md={6} className="d-flex align-items-center justify-content-center">
+        <div style={{ width: '100%', maxWidth: '400px' }}>
+          {isLogin ? (
+            <Login onLoginSuccess={handleLoginSuccess} />
+          ) : (
+            <Signup />
+          )}
+          <div className="text-center mt-4">
+            {isLogin ? (
+              <p>
+                Don't have an account?{' '}
+                <button onClick={() => setIsLogin(false)} className="btn btn-link p-0">
+                  Sign Up
+                </button>
+              </p>
+            ) : (
+              <p>
+                Already have an account?{' '}
+                <button onClick={() => setIsLogin(true)} className="btn btn-link p-0">
+                  Login
+                </button>
+              </p>
+            )}
+          </div>
+        </div>
+      </Col>
+    </Row>
+  );
+
   return (
     <AuthContext.Provider value={{ isAuthenticated, handleLoginSuccess, handleLogout }}>
       <Router>
@@ -47,42 +87,7 @@ function App() {
             <Routes>
               <Route
                 path="/"
-                element={
-                  <Row>
-                    <Col md={6} className="bg-dark text-white d-flex align-items-center justify-content-center">
-                      <div>
-                        <h1>Welcome to ProShop</h1>
-                        <p>Explore our products and experience the best shopping platform!</p>
-                      </div>
-                    </Col>
-                    <Col md={6} className="d-flex align-items-center justify-content-center">
-                      <div style={{ width: '100%', maxWidth: '400px' }}>
-                        {isLogin ? (
-                          <Login onLoginSuccess={handleLoginSuccess} />
-                        ) : (
-                          <Signup />
-                        )}
-                        <div className="text-center mt-4">
-                          {isLogin ? (
-                            <p>
-                              Don't have an account?{' '}
-                              <button onClick={() => setIsLogin(false)} className="btn btn-link p-0">
-                                Sign Up
-                              </button>
-                            </p>
-                          ) : (
-                            <p>
-                              Already have an account?{' '}
-                              <button onClick={() => setIsLogin(true)} className="btn btn-link p-0">
-                                Login
-                              </button>
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    </Col>
-                  </Row>
-                }
+                element={isAuthenticated ? <Navigate to="/home" /> : <WelcomeScreen />}
               />
               <Route
                 path="/admin"
@@ -96,11 +101,10 @@ function App() {
                 path="/home"
                 element={
                   <ProtectedRoute isAuthenticated={isAuthenticated}>
-                    <HomePage />
+                    <HomePage setSelectedGiftCode={setSelectedGiftCode} />
                   </ProtectedRoute>
                 }
               />
-              
               <Route
                 path="/profile"
                 element={
@@ -109,7 +113,20 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="*" element={<Navigate to={isAuthenticated ? "/home" : "/"} />} />
+              <Route
+                path="/purchase"
+                element={
+                  <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    <PurchaseScreen
+                      selectedGiftCode={selectedGiftCode}
+                      onBack={() => setSelectedGiftCode(null)}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/result" element={<ResultScreen />} />
+              <Route path="/mygamecode" element={<CodePurchaseScreen />} />
+              <Route path="*" element={<Navigate to={isAuthenticated ? '/home' : '/'} />} />
             </Routes>
           </Container>
         </main>

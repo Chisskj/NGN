@@ -11,6 +11,9 @@ function Header() {
   const handleProfileClick = () => {
     navigate('/profile');
   };
+  const handleMyGameCodeClick = () => {
+    navigate('/mygamecode');
+  };
 
   const handleLogoutClick = () => {
     handleLogout(); // Remove token from localStorage and update state
@@ -41,6 +44,7 @@ function Header() {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={handleProfileClick}>Profile</Dropdown.Item>
+                  <Dropdown.Item onClick={handleMyGameCodeClick}>GameCode</Dropdown.Item>
                   <Dropdown.Item onClick={handleLogoutClick}>Logout</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>

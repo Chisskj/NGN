@@ -1,0 +1,19 @@
+.code-purchase-screen {
+  padding: 20px;
+}
+
+.purchased-code-card {
+  transition: transform 0.3s ease-in-out;
+  border: none;
+  overflow: hidden;
+}
+
+.purchased-code-card img {
+  height: 150px;
+  object-fit: cover;
+}
+
+.purchased-code-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.3);
+}
