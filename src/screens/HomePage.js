@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import GiftCode from "../components/GiftCode";
 import "./HomePage.css";
 
-const HomePage = ({ setSelectedGiftCode }) => {
+const HomePage = ({ setSelectedGiftCode, searchTerm }) => {
   const gameCodes = [
     {
       model_code: "VIP_B_basic1",
@@ -42,9 +42,13 @@ const HomePage = ({ setSelectedGiftCode }) => {
       discount: "7",
       valid_date: "2025-12-13T21:52:37.000+00:00",
     },
-    // Thêm các gift code khác ở đây...
   ];
-
+  const filteredCodes = gameCodes.filter(
+    (code) =>
+      code.model_code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      code.model_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      code.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   const [hotCodes, setHotCodes] = useState(gameCodes.slice(0, 3));
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -109,9 +113,10 @@ const HomePage = ({ setSelectedGiftCode }) => {
         <Col md={12}>
           <h3>Game Codes List</h3>
           <Row>
-            {gameCodes.map((giftCode, index) => (
-              <Col md={4} key={index}>
-                <Card
+            {filteredCodes.length > 0 ? (
+              filteredCodes.map((giftCode, index) => (
+                <Col md={4} key={index}>
+                  <Card
                     className="mx-2"
                     style={{ width: "18rem" }}
                     onClick={() => {
@@ -119,10 +124,15 @@ const HomePage = ({ setSelectedGiftCode }) => {
                       navigate("/purchase");
                     }}
                   >
-                <GiftCode giftCode={giftCode} />
-                </Card>
+                    <GiftCode giftCode={giftCode} />
+                  </Card>
+                </Col>
+              ))
+            ) : (
+              <Col md={12}>
+                <p>Không tìm thấy kết quả nào.</p>
               </Col>
-            ))}
+            )}
           </Row>
         </Col>
       </Row>

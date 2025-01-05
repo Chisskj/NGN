@@ -18,6 +18,7 @@ import './bootstrap.min.css';
 export const AuthContext = createContext();
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [selectedGiftCode, setSelectedGiftCode] = useState(null); // State for selected gift code
@@ -81,7 +82,7 @@ function App() {
   return (
     <AuthContext.Provider value={{ isAuthenticated, handleLoginSuccess, handleLogout }}>
       <Router>
-        <Header />
+        <Header setSearchTerm={setSearchTerm}/>
         <main className="py-5">
           <Container>
             <Routes>
@@ -101,7 +102,7 @@ function App() {
                 path="/home"
                 element={
                   <ProtectedRoute isAuthenticated={isAuthenticated}>
-                    <HomePage setSelectedGiftCode={setSelectedGiftCode} />
+                    <HomePage setSelectedGiftCode={setSelectedGiftCode} searchTerm={searchTerm} />
                   </ProtectedRoute>
                 }
               />
